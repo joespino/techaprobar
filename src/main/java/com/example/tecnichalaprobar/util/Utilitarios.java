@@ -15,10 +15,11 @@ import java.security.Security;
 
 public class Utilitarios {
 
+    private static final String key = "Dz95mH1tOySrMlGLhUaAAA==";
+
     /**
      * Aplica la encriptacion AES a la cadena de texto usando la clave indicada
      * @param datos Cadena a encriptar
-     * @param claveSecreta Clave para encriptar
      * @return Información encriptada
      * @throws NoSuchAlgorithmException
      * @throws InvalidKeyException
@@ -26,10 +27,10 @@ public class Utilitarios {
      * @throws IllegalBlockSizeException
      * @throws BadPaddingException
      */
-    public static String encriptar(String datos, String claveSecreta) throws NoSuchAlgorithmException,
+    public static String encriptar(String datos) throws NoSuchAlgorithmException,
             InvalidKeyException, NoSuchPaddingException,
             IllegalBlockSizeException, BadPaddingException {
-        byte[] keyBytes = java.util.Base64.getDecoder().decode(claveSecreta.getBytes(StandardCharsets.UTF_8));
+        byte[] keyBytes = java.util.Base64.getDecoder().decode(key.getBytes(StandardCharsets.UTF_8));
         SecretKeySpec secretKey = new SecretKeySpec(keyBytes, "AES");
 
         Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
@@ -38,10 +39,11 @@ public class Utilitarios {
 
         byte[] datosEncriptar = datos.getBytes(StandardCharsets.UTF_8);
         byte[] bytesEncriptados = cipher.doFinal(datosEncriptar);
-        return Base64.encodeBase64String(bytesEncriptados);
+        return SpecialCharacter.changeString(Base64.encodeBase64String(bytesEncriptados));
     }
 
-    public static String desencriptar(String  pStringEncrypted) {
+    public static String desencriptar(String pStringEncrypted) {
+        pStringEncrypted = SpecialCharacter.deschangeString(pStringEncrypted);
         String result = null;
         try {
             byte[] encryptedBytes = decodeFromBase64(pStringEncrypted);
@@ -51,7 +53,6 @@ public class Utilitarios {
                 encryptedBytes = decodeFromBase64(stringEncryted);
             }
 
-            String key = "Dz95mH1tOySrMlGLhUaAAA==";
             byte[] keyBytes = java.util.Base64.getDecoder().decode(key.getBytes(StandardCharsets.UTF_8));
             final SecretKeySpec skeySpec = new SecretKeySpec(keyBytes,"AES");
 
