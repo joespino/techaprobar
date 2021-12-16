@@ -21,12 +21,6 @@ public class MailController {
         this.emailSender = emailSender;
     }
 
-    @GetMapping("/")
-    public ResponseEntity<Void> saludo() {
-        LOG.info("Hola");
-        return ResponseEntity.accepted().build();
-    }
-
     @GetMapping("/aprobarsolicitud")
     public ResponseEntity<Void> aprobarSolicitud(@RequestParam String usuario,
                                                  @RequestParam String idSolicitud,
