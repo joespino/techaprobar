@@ -14,10 +14,6 @@ configurations {
     }
 }
 
-bootRun {
-    setMain('com.example.technicalaprobar.TecnichalaprobarApplication')
-}
-
 repositories {
     mavenCentral()
 }
