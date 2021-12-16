@@ -7,7 +7,6 @@ import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.SecretKeySpec;
-import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
@@ -27,7 +26,7 @@ public class Utilitarios {
      * @throws IllegalBlockSizeException
      * @throws BadPaddingException
      */
-    public String encriptar(String datos, String claveSecreta) throws NoSuchAlgorithmException,
+    public static String encriptar(String datos, String claveSecreta) throws NoSuchAlgorithmException,
             InvalidKeyException, NoSuchPaddingException,
             IllegalBlockSizeException, BadPaddingException {
         byte[] keyBytes = java.util.Base64.getDecoder().decode(claveSecreta.getBytes(StandardCharsets.UTF_8));
@@ -42,7 +41,7 @@ public class Utilitarios {
         return Base64.encodeBase64String(bytesEncriptados);
     }
 
-    public String desencriptar(String  pStringEncrypted) {
+    public static String desencriptar(String  pStringEncrypted) {
         String result = null;
         try {
             byte[] encryptedBytes = decodeFromBase64(pStringEncrypted);
