@@ -38,8 +38,8 @@ public class MailController {
     @GetMapping("/encriptacion")
     public ResponseEntity<Void> encriptar(@RequestParam Map<String,String> allParams) {
         try {
-            String usuario = Utilitarios.encriptar(allParams.get("usuario"), "");
-            String solicitud = Utilitarios.encriptar(allParams.get("solicitud"), "");
+            String usuario = Utilitarios.encriptar(allParams.get("usuario"), "Dz95mH1tOySrMlGLhUaAAA==");
+            String solicitud = Utilitarios.encriptar(allParams.get("solicitud"), "Dz95mH1tOySrMlGLhUaAAA==");
             LOG.info("usuario: " + usuario + " solicitud: " + solicitud);
         } catch (Exception exception) {
             LOG.error(exception.getMessage());
