@@ -6,10 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.net.URISyntaxException;
 
 @RestController
 public class MailController {
@@ -22,9 +19,7 @@ public class MailController {
     }
 
     @GetMapping("/aprobarsolicitud")
-    public ResponseEntity<Void> aprobarSolicitud(@RequestParam String usuario,
-                                                 @RequestParam String idSolicitud,
-                                                 @RequestParam boolean aprobar) throws URISyntaxException {
+    public ResponseEntity<Void> aprobarSolicitud() {
         LOG.info("Informacion de prueba");
         return ResponseEntity.accepted().build();
     }
