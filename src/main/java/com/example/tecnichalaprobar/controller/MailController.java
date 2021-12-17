@@ -33,7 +33,7 @@ public class MailController {
         this.gestorAprobadorRepository = gestorAprobadorRepository;
     }
 
-    @GetMapping("/aprobarsolicitud")
+    @PostMapping("/aprobarsolicitud")
     public ResponseEntity<Object> aprobarSolicitud(@RequestParam Map<String,String> allParams) {
         try {
             final Context ctx = new Context();
