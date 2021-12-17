@@ -23,7 +23,6 @@ public class AprobarServiceImpl implements AprobarService {
     private static final Logger LOG = LoggerFactory.getLogger(AprobarServiceImpl.class);
     private final GestorAprobadorRepository gestorAprobadorRepository;
     private final UsuarioSolicitudRepository usuarioSolicitudRepository;
-    private final String url = "https://technicalspike.s3.amazonaws.com/plantilla/";
 
     @Autowired
     private TemplateEngine templateEngine;
@@ -48,7 +47,7 @@ public class AprobarServiceImpl implements AprobarService {
                     if(LocalDate.now().isAfter(datos.getFechaexpiracion().toLocalDate()))
                     {
                         ctx.setVariable("solicitud", datos.getSolicitudid());
-                        return this.templateEngine.process(url + "plantillatiempo.html", ctx);
+                        return this.templateEngine.process("plantillatiempo.html", ctx);
                     } else
                     {
                         Optional<UsuarioSolicitud> usuarioSolicitud = usuarioSolicitudRepository.
@@ -65,7 +64,7 @@ public class AprobarServiceImpl implements AprobarService {
                                     .build());
                             ctx.setVariable("solicitud", datos.getSolicitudid());
                             ctx.setVariable("aprobado", datos.getAprobado() == 1 ? "Aprobado" : "Rechazado");
-                            return this.templateEngine.process(url + "plantillaprocesado.html", ctx);
+                            return this.templateEngine.process("plantillaprocesado.html", ctx);
                         }
 
                     }
@@ -73,7 +72,7 @@ public class AprobarServiceImpl implements AprobarService {
                     ctx.setVariable("solicitud", datos.getSolicitudid());
                     ctx.setVariable("aprobado", datos.getAprobado() == 1 ? "Aprobado" : "Rechazado");
                     ctx.setVariable("nombre", datos.getNombre());
-                    return this.templateEngine.process(url + "plantillaaceptado.html", ctx);
+                    return this.templateEngine.process("plantillaaceptado.html", ctx);
                 }
             }
         } catch (Exception exception) {
