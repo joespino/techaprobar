@@ -28,7 +28,7 @@ public class MailController {
         this.usuarioSolicitudRepository = usuarioSolicitudRepository;
     }
 
-    @PostMapping("/aprobarsolicitud")
+    @GetMapping("/aprobarsolicitud")
     public ResponseEntity<Object> aprobarSolicitud(@RequestParam Map<String,String> allParams) {
         try {
             return ResponseEntity.ok().body(aprobarService.aprobarSolicitud(allParams));
