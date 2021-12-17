@@ -44,7 +44,8 @@ public class AprobarServiceImpl implements AprobarService {
             );
             if(!ObjectUtils.isEmpty(datos)) {
                 if(ObjectUtils.isEmpty(datos.getEmitioaccion())) {
-                    if(LocalDate.now().isAfter(datos.getFechaexpiracion().toLocalDate()))
+                    if(LocalDate.now().isAfter(datos.getFechaexpiracion().toLocalDate()) ||
+                            LocalDate.now().isEqual(datos.getFechaexpiracion().toLocalDate()))
                     {
                         ctx.setVariable("solicitud", datos.getSolicitudid());
                         return this.templateEngine.process("plantillatiempo.html", ctx);
