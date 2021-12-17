@@ -1,7 +1,7 @@
 package com.example.tecnichalaprobar.service;
 
-import org.springframework.stereotype.Service;
+import java.util.Map;
 
-@Service
-public class AprobarService {
+public interface AprobarService {
+    String aprobarSolicitud(Map<String, String> params);
 }

@@ -15,16 +15,12 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "log_gestoraprobador")
-public class GestorAprobador {
-
+@Table(name = "log_usuariosolicitud")
+public class UsuarioSolicitud {
     @Id
     private Integer id;
     private String nombre;
     private Integer usuarioid;
-    private Integer emitioaccion;
     private Integer solicitudid;
-    private Integer aprobado;
-    private LocalDateTime fecharegistro;
-    private LocalDateTime fechaexpiracion;
+    private String email;
 }

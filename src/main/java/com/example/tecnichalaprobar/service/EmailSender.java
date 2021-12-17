@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 
 import javax.mail.internet.InternetAddress;
 import java.io.StringWriter;
-import java.util.Map;
 
 @Component
 public class EmailSender {
@@ -24,7 +23,7 @@ public class EmailSender {
     }
 
     public void sendEmailUsingVelocityTemplate(final String subject, final String message,
-                                               final String fromEmailAddress, final String toEmailAddress, Map<String,String> params) {
+                                               final String fromEmailAddress, final String toEmailAddress, String solicitud, String usuario) {
 
         MimeMessagePreparator preparator = mimeMessage -> {
             MimeMessageHelper message1 = new MimeMessageHelper(mimeMessage);
@@ -33,14 +32,9 @@ public class EmailSender {
 
             VelocityContext velocityContext = new VelocityContext();
 
-            String usuario = Utilitarios.encriptar(params.get("usuario"));
-            String solicitud = Utilitarios.encriptar(params.get("solicitud"));
-            boolean aprobado = Boolean.parseBoolean(params.get("aprobado"));
-
-            velocityContext.put("idsolicitud", params.get("solicitud"));
-            velocityContext.put("usuario", usuario);
-            velocityContext.put("solicitud", solicitud);
-            velocityContext.put("aprobado", aprobado);
+            velocityContext.put("idsolicitud", solicitud);
+            velocityContext.put("usuario", Utilitarios.encriptar(usuario));
+            velocityContext.put("solicitud", Utilitarios.encriptar(solicitud));
 
             StringWriter stringWriter = new StringWriter();
 
