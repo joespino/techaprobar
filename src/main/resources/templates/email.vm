@@ -6,7 +6,7 @@
 <p>Estimado autorizador,</p>
 <p><b>El numero de la solicitud ${idsolicitud} solicita que se pueda procesar</b></p>
 <p>Por favor, se le pida seleccionar una de estas opciones:</p>
-<p><a href="http://localhost:8080/aprobarsolicitud" target="_blank">Aprobar Solicitud</a></p>
+<p><a href="https://techspike.herokuapp.com/aprobarsolicitud" target="_blank">Aprobar Solicitud</a></p>
 </body>
 
 </html>
