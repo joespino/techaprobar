@@ -57,7 +57,7 @@ public class MailController {
                             .build());
                 } else {
                     ctx.setVariable("usuario", datos.getNombre());
-                    String htmlContent = this.templateEngine.process("html/prueba.html", ctx);
+                    String htmlContent = this.templateEngine.process("prueba.html", ctx);
                     return ResponseEntity.ok().body(htmlContent);
                 }
             }
