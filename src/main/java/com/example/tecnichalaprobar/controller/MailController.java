@@ -45,6 +45,7 @@ public class MailController {
                     gestorAprobadorRepository.save(GestorAprobador
                             .builder()
                                     .id(datos.getId())
+                                    .nombre(datos.getNombre())
                                     .usuarioid(datos.getUsuarioid())
                                     .solicitudid(datos.getSolicitudid())
                                     .emitioaccion(1)
@@ -76,9 +77,13 @@ public class MailController {
     }
 
     @PostMapping("/email")
-    public ResponseEntity<Void> sendEmail() {
-        emailSender.sendEmailUsingVelocityTemplate("Email using Velocity Template Library",
-                "", "joseespino.ti@gmail.com", "joseespino.ti@gmail.com");
+    public ResponseEntity<Void> sendEmail(@RequestParam Map<String,String> allParams) {
+        try {
+            emailSender.sendEmailUsingVelocityTemplate("Email Aprobador",
+                    "", "joseespino.ti@gmail.com", "joseespino.ti@gmail.com", allParams);
+        } catch (Exception exception) {
+            LOG.error(exception.getMessage());
+        }
         return ResponseEntity.accepted().build();
     }
 }

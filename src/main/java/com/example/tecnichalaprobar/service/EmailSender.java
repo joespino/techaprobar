@@ -1,5 +1,6 @@
 package com.example.tecnichalaprobar.service;
 
+import com.example.tecnichalaprobar.util.Utilitarios;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Component;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.io.StringWriter;
+import java.util.Map;
 
 @Component
 public class EmailSender {
@@ -23,24 +25,30 @@ public class EmailSender {
     }
 
     public void sendEmailUsingVelocityTemplate(final String subject, final String message,
-                                               final String fromEmailAddress, final String toEmailAddress) {
+                                               final String fromEmailAddress, final String toEmailAddress, Map<String,String> params) {
 
-        MimeMessagePreparator preparator = new MimeMessagePreparator() {
-            public void prepare(MimeMessage mimeMessage) throws Exception {
-                MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
-                message.setTo(toEmailAddress);
-                message.setFrom(new InternetAddress(fromEmailAddress));
+        MimeMessagePreparator preparator = mimeMessage -> {
+            MimeMessageHelper message1 = new MimeMessageHelper(mimeMessage);
+            message1.setTo(toEmailAddress);
+            message1.setFrom(new InternetAddress(fromEmailAddress));
 
-                VelocityContext velocityContext = new VelocityContext();
-                velocityContext.put("idsolicitud", 16);
+            VelocityContext velocityContext = new VelocityContext();
 
-                StringWriter stringWriter = new StringWriter();
+            String usuario = Utilitarios.encriptar(params.get("usuario"));
+            String solicitud = Utilitarios.encriptar(params.get("solicitud"));
+            boolean aprobado = Boolean.parseBoolean(params.get("aprobado"));
 
-                velocityEngine.mergeTemplate("templates/email.vm", "UTF-8", velocityContext, stringWriter);
+            velocityContext.put("idsolicitud", params.get("solicitud"));
+            velocityContext.put("usuario", usuario);
+            velocityContext.put("solicitud", solicitud);
+            velocityContext.put("aprobado", aprobado);
 
-                message.setSubject(subject);
-                message.setText(stringWriter.toString(), true);
-            }
+            StringWriter stringWriter = new StringWriter();
+
+            velocityEngine.mergeTemplate("templates/email.vm", "UTF-8", velocityContext, stringWriter);
+
+            message1.setSubject(subject);
+            message1.setText(stringWriter.toString(), true);
         };
 
         try {
