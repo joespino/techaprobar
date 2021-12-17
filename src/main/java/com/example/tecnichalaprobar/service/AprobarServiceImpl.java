@@ -61,6 +61,7 @@ public class AprobarServiceImpl implements AprobarService {
                                     .solicitudid(datos.getSolicitudid())
                                     .emitioaccion(1)
                                     .aprobado(aprobado ? 1 : 0)
+                                            .fechaexpiracion(datos.getFechaexpiracion())
                                     .build());
                             ctx.setVariable("solicitud", datos.getSolicitudid());
                             ctx.setVariable("aprobado", datos.getAprobado() == 1 ? "Aprobado" : "Rechazado");
